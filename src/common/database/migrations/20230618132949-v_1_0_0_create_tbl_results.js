@@ -1,6 +1,9 @@
 'use strict';
 
+const DataTypes = require('sequelize').DataTypes
 /** @type {import('sequelize-cli').Migration} */
+
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -11,59 +14,53 @@ module.exports = {
      */
     return await queryInterface.sequelize.transaction(async (transaction) => {
       await queryInterface.createTable(
-        'tbl_result',
+        'tbl_results',
         {
           id: {
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
           },
           race_id: {
-            type: Sequelize.DataTypes.UUID,
+            type: DataTypes.UUID,
             allowNull: false,
-            references: {
-              model: 'tbl_races',
-              key: 'id',
-            },
+            field: 'race_id'
           },
           driver_id: {
-            type: Sequelize.DataTypes.UUID,
+            type: DataTypes.UUID,
             allowNull: false,
-            references: {
-              model: 'tbl_drivers',
-              key: 'id',
-            },
+            field: 'driver_id'
           },
           no: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           pos: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           car: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           laps: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           time: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           pts: {
-            type: Sequelize.DataTypes.INTEGER,//point
+            type: DataTypes.INTEGER,//point
           },
           created_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
+            defaultValue: DataTypes.NOW,
           },
           updated_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
+            defaultValue: DataTypes.NOW,
           },
           deleted_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
           },
         },

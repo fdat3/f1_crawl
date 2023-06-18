@@ -1,44 +1,46 @@
 'use strict';
 
+const DataTypes = require('sequelize').DataTypes
 /** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+    *
+    * Example:
+    * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+    */
     return await queryInterface.sequelize.transaction(async (transaction) => {
       await queryInterface.createTable(
         'tbl_races',
         {
           id: {
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
           },
           grand_prix: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           date: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
           },
           year: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           created_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
+            defaultValue: DataTypes.NOW,
           },
           updated_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
+            defaultValue: DataTypes.NOW,
           },
           deleted_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
           },
         },

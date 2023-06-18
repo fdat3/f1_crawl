@@ -1,6 +1,7 @@
 'use strict';
-
+const DataTypes = require('sequelize').DataTypes
 /** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -14,66 +15,66 @@ module.exports = {
         'tbl_teams',
         {
           id: {
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
           },
           fullname_team: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           logo: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           base: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           team_chief: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           technical_chief: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           chassis: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           power_unit: {
-            type: Sequelize.DataTypes.STRING,
+            type: DataTypes.STRING,
           },
           first_team_entry: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           world_championships: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           highest_race_finish: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           pole_positions: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           fastest_laps: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
           },
           bio: {
-            type: Sequelize.DataTypes.TEXT('long'),
+            type: DataTypes.TEXT,
             allowNull: true
           },
           images: {
-            type: Sequelize.DataTypes.ARRAY,
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: true,
           },
           created_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
+            defaultValue: DataTypes.NOW,
           },
           updated_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
+            defaultValue: DataTypes.NOW,
           },
           deleted_at: {
-            type: Sequelize.DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
           },
         },
