@@ -1,0 +1,51 @@
+ib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+tmp
+
+#Build
+public/css/main.css
+
+# API keys and secrets
+# .env
+.env_dev
+.env_prod
+
+
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+.vscode
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist
+build
+test
+docker
+!docker/docker-compose.yml
+tests
+scripts
+package-lock.json
+code-log.txt
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.ebextensions
+aws_dockers

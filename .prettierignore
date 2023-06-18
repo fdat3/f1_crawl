@@ -1,0 +1,5 @@
+# Prettierignore
+.idea
+node_modules
+build
+.env

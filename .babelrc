@@ -1,0 +1,29 @@
+{
+  "presets": ["es2015", "stage-0"],
+  "plugins": [
+    [
+      "babel-plugin-transform-builtin-extend",
+      {
+        "globals": ["Error", "Array"],
+        "approximate": true
+      }
+    ],
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathSuffix": "build",
+        "rootPathPrefix": "@"
+      }
+    ],
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": true
+      }
+    ],
+    "istanbul"
+  ],
+  "sourceMaps": "inline",
+  "retainLines": true
+}

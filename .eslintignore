@@ -1,0 +1,4 @@
+node_modules
+build
+src/utils/parse.utils.ts
+src/common/database/migrations
