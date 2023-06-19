@@ -1,5 +1,8 @@
 
 export interface ITeamCraw {
+    data_player_1: any
+    data_player_2: any
+    full_team_name: any
     fullname_team: string,
     logo: string,
     base: string,
@@ -16,6 +19,7 @@ export interface ITeamCraw {
     images: string
 }
 export interface ITeam {
+    name: any
     id?: string,
     fullname_team: string,
     logo: string,

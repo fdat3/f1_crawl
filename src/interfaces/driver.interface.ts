@@ -15,7 +15,8 @@ export interface IDriverCraw {
     date_of_birth: Date,
     place_of_birth: string,
     images: string
-    team_data?: ITeamCraw
+    team_data?: ITeamCraw,
+    team_mate_data?: IDriverCraw
 }
 export interface IDriver {
     id?: string,
