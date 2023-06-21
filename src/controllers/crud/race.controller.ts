@@ -11,7 +11,7 @@ import * as moment from "moment";
 const schedule = require("node-schedule");
 
 
-export class RacesController extends CrudController<typeof racesService> {
+export class RaceController extends CrudController<typeof racesService> {
     constructor() {
         super(racesService)
         schedule.scheduleJob('0 0 */1 */1 *', async () => {//sync data everyday
@@ -105,7 +105,7 @@ export class RacesController extends CrudController<typeof racesService> {
                                 transaction,
                                 where: {}
                             })//save to db
-                            console.log(`saved data to db:${bodyRace.year}, ${bodyRace.grand_prix}, ${bodyDriver.name}, ${bodyTeam.name}`)
+                            console.log(`saved data to db:${bodyRace.year}, ${bodyRace.grand_prix}, ${bodyDriver.name}, ${bodyTeam.fullname_team}`)
                         }
                     }
                     console.log("sync done year: ", yearSeason.year)
@@ -220,25 +220,25 @@ export class RacesController extends CrudController<typeof racesService> {
                     //get key like name, place-of-birth...
                     //trans data to json 
                     const value = $(element).find('.driver-name').text().trim()
-                    dataCraw['Driver Name'] = value
+                    dataCraw['name'] = value
                 })
                 $(".driver-details").each((i: number, element: any) => {
                     //get key like name, place-of-birth...
                     //trans data to json 
                     const value = $(element).find('.driver-number').text().trim()
-                    dataCraw['Driver Number'] = value
+                    dataCraw['driver_number'] = value
                 })
                 $(".biography").each((i: number, element: any) => {
                     //get key like name, place-of-birth...
                     //trans data to json 
                     const value = $(element).find('div').text().trim()
-                    dataCraw['Bio'] = value
+                    dataCraw['bio'] = value
                 })
                 $(".profile").each((i: number, element: any) => {
                     //get key like name, place-of-birth...
                     //trans data to json 
                     const value = $(element).find('img').attr('src')
-                    dataCraw['Avatar'] = value
+                    dataCraw['avatar'] = value
                 })
                 $("tr").each((i: number, element: any) => {
                     const key = $(element).find('th:nth-of-type(1)').text().trim().toLowerCase().replace(/ /g, "_")
@@ -308,7 +308,7 @@ export class RacesController extends CrudController<typeof racesService> {
                 //get key like name, place-of-birth...
                 //trans data to json 
                 const value = $(element).find('div').text().trim()
-                dataCraw['Bio'] = value
+                dataCraw['bio'] = value
             })
             $(".brand-logo").each((i: number, element: any) => {
                 //get key like name, place-of-birth...
@@ -365,7 +365,6 @@ export class RacesController extends CrudController<typeof racesService> {
             team_highest_race_finish = parseInt(driver_highest_race_finish_cut_first.replace(")", ""))
         }
         const bodyTeam: ITeam = {
-            name: body.full_team_name,
             base: body.base,
             team_chief: body.team_chief,
             technical_chief: body.technical_chief,
@@ -376,10 +375,10 @@ export class RacesController extends CrudController<typeof racesService> {
             highest_race_finish: team_highest_race_finish,
             pole_positions: body.pole_positions === null ? null : body.pole_positions,
             fastest_laps: body.fastest_laps === null ? null : body.fastest_laps,
-            fullname_team: '',
-            logo: '',
-            bio: undefined,
-            images: ''
+            fullname_team: body.fullname_team,
+            logo: body.logo,
+            bio: body.bio,
+            images: body.images
         }
         return bodyTeam
     }
@@ -403,7 +402,8 @@ export class RacesController extends CrudController<typeof racesService> {
             place_of_birth: body.place_of_birth,
             driver_number: 0,
             bio: undefined,
-            images: ''
+            images: body.images,
+            avatar: body.avatar
         }
         return bodyDriver
     }

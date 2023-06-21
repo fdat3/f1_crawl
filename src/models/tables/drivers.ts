@@ -24,7 +24,7 @@ export const Drivers = sequelize.define(
             type: DataTypes.STRING,
         },
         bio: {
-            type: DataTypes.TEXT,
+            type: DataTypes.TEXT('long'),
             allowNull: true
         },
         country: {
@@ -49,13 +49,13 @@ export const Drivers = sequelize.define(
             type: DataTypes.INTEGER,
         },
         date_of_birth: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
         },
         place_of_birth: {
             type: DataTypes.STRING,
         },
-        images: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
+        avatar: {
+            type: DataTypes.STRING,
             allowNull: true,
         },
         created_at: {

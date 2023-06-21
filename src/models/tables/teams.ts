@@ -49,9 +49,8 @@ export const Teams = sequelize.define(
             type: DataTypes.TEXT,
             allowNull: true
         },
-        images: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: true,
+        avatar: {
+            type: DataTypes.STRING,
         },
         created_at: {
             type: DataTypes.DATE,
