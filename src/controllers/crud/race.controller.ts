@@ -26,7 +26,10 @@ export class RaceController extends CrudController<typeof racesService> {
     // 		await this.syncData(temparray)
     // 	}
     // }
-
+    async getResultInOneRaces(params: { year: Number, grand_prix: String }) {
+        const result = await this.service.getResultInOneRace(params)
+        return result
+    }
     async syncData() {
         const transaction = await sequelize.transaction();
         try {
@@ -407,4 +410,5 @@ export class RaceController extends CrudController<typeof racesService> {
         }
         return bodyDriver
     }
+
 }

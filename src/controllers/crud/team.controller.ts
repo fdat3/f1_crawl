@@ -10,6 +10,10 @@ export class TeamController extends CrudController<typeof teamService> {
         const result = await this.service.getResultATeamByYear(params)
         return result
     }
+    async getResultTeamByName(params: { year: Number, team_name: String }) {
+        const result = await this.service.getResultTeamByName(params)
+        return result
+    }
     async getResultAllTeamByYear(params: { year: Number }) {
         const result = await this.service.getResultALLTeamByYear(params)
         return result

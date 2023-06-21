@@ -44,6 +44,28 @@ export class DriverService extends CrudService<typeof Drivers> {
         })
         return result
     }
+    async getResultADriverByName(params: { year: Number, driver_name: String }) {
+        const result = await Results.findAll({
+            where: {
+                "$race.year$": params.year,
+                "$driver.name$": params.driver_name
+            },
+            include: [
+                {
+                    association: "race",
+                    attributes: ["grand_prix", "date"]
+                },
+                {
+                    association: "driver",
+                    attributes: []
+                }
+            ],
+            attributes: ["car", "pos", [sequelize.fn('sum', sequelize.col('pts')), 'pts']],
+            group: ["race_id", "race.grand_prix", "race.date", "driver.id", "car", "pos"],
+            raw: true
+        })
+        return result
+    }
     async getResultAllDriverByYear(params: { year: Number }) {
         let driversOfRaceAYear: any = await Results.findAll({//get races of a team
             where: {
@@ -64,11 +86,6 @@ export class DriverService extends CrudService<typeof Drivers> {
             order: [["pts", "desc"]],
             raw: true
         })
-        for (let index = 0; index < driversOfRaceAYear.length; index++) {
-            const item = driversOfRaceAYear[index]
-            const apiGetResultATeamByYear: string = `/api/v1/drivers/${item["driver.id"]}/get-result-by-year/${params.year}`
-            item.detail = apiGetResultATeamByYear
-        }
         return driversOfRaceAYear
     }
 }

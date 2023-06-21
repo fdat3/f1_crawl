@@ -19,4 +19,20 @@ export class RacesService extends CrudService<typeof Races> {
         }
         return race
     }
+    async getResultInOneRace(params: { year: Number, grand_prix: String }) {
+        const result = await Races.findAll({
+            where: {
+                year: params.year,
+                grand_prix: params.grand_prix
+            },
+            include: [
+                {
+                    association: 'results',
+                    attributes: ['no', 'pos', 'car', 'laps', 'time', 'pts'],
+                },
+            ],
+            raw: true
+        })
+        return result
+    }
 }

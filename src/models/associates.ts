@@ -9,7 +9,7 @@ console.log('Loading Associate Model.....');
 
 // DriversOfRace
 Results.belongsTo(Races, {
-    foreignKey: 'id',
+    foreignKey: 'race_id',
     as: 'race',
 })
 Races.hasMany(Results, {

@@ -9,10 +9,17 @@ export default class RacesRouter extends CrudRouter<typeof raceController> {
         super(raceController)
     }
     customRouting() {
-        this.router.get('/craw/:year', this.crawdataMiddleware(), this.route(this.crawdata))//for test
+        this.router.get('/craw/:year', this.crawdataMiddleware(), this.route(this.crawdata))
         this.router.get('/sync-data', this.crawdataMiddleware(), this.route(this.syncData))
+        this.router.get('/:grand_prix/get-result-by-name/:year', this.route(this.getResultInOneRace))
         this.router.get('/craw-driver/:name', this.crawdataMiddleware(), this.route(this.crawDriver))
         this.router.get('/craw-team/:name', this.crawdataMiddleware(), this.route(this.crawTeam))
+    }
+    async getResultInOneRace(req: Request, res: Response) {
+        const year: Number = parseInt(req.params.year)
+        const grand_prix: String = req.params.grand_prix
+        const result = await this.controller.getResultInOneRaces({ year, grand_prix })
+        this.onSuccess(res, result)
     }
     async syncData(req: Request, res: Response) {
         this.controller.syncData()

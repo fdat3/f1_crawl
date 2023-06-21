@@ -38,13 +38,29 @@ export class TeamService extends CrudService<typeof Teams> {
             ],
             attributes: [[sequelize.fn('sum', sequelize.col('pts')), 'pts']],
             group: ["race_id", "race.grand_prix", "race.date", "driver.team_id"],
-            // order: [["pts", "desc"]],
+            raw: true
+        })
+        return result
+    }
+    async getResultTeamByName(params: { year: Number, team_name: String }) {
+        const result = await Results.findAll({
+            where: {
+                car: params.team_name
+            },
+            include: [
+                {
+                    association: "race",
+                    attributes: ["grand_prix", "date"]
+                }
+            ],
+            attributes: [[sequelize.fn('sum', sequelize.col('pts')), 'pts']],
+            group: ["race_id", "race.grand_prix", "race.date"],
             raw: true
         })
         return result
     }
     async getResultALLTeamByYear(params: { year: Number }) {
-        let driversOfRaceAYear: any = await Results.findAll({//get races of a team
+        let driversOfRaceAYear: any = await Results.findAll({
             where: {
                 "$race.year$": params.year
             },
@@ -69,11 +85,6 @@ export class TeamService extends CrudService<typeof Teams> {
             order: [["pts", "desc"]],
             raw: true
         })
-        for (let index = 0; index < driversOfRaceAYear.length; index++) {
-            const item = driversOfRaceAYear[index]
-            const apiGetResultATeamByYear: string = `/api/v1/teams/${item["driver.team.id"]}/get-result-by-year/${params.year}`
-            item.detail = apiGetResultATeamByYear
-        }
         return driversOfRaceAYear
     }
 }
