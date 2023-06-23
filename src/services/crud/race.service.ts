@@ -7,6 +7,8 @@ export class RacesService extends CrudService<typeof Races> {
         super(Races)
     }
     async findOrCreate(params: any, option?: ICrudOption) {
+        console.log("🚀 ~ file: race.service.ts:10 ~ RacesService ~ findOrCreate ~ params:", params)
+        console.log("🚀 ~ file: race.service.ts:10 ~ RacesService ~ findOrCreate ~ params:", params.grand_prix)
         let race = await this.model.findOne({
             where: {
                 grand_prix: params.grand_prix,

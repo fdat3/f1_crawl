@@ -1,5 +1,5 @@
 
-export interface ITeamCraw {
+export interface ITeamCrawl {
     data_player_1: any
     data_player_2: any
     fullname_team: string,

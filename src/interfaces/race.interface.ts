@@ -1,10 +1,10 @@
-import { IDriverCraw } from "./driver.interface";
+import { IDriverCrawl } from "./driver.interface";
 
-export interface IRaceCraw {
+export interface IRaceCrawl {
     grand_prix: string,
     date: string,
     href: string,
-    drivers?: Array<IResultCraw>,
+    drivers?: Array<IResultCrawl>,
 }
 export interface IRace {
     id?: string,
@@ -12,7 +12,7 @@ export interface IRace {
     date: Date,
     year: number,
 }
-export interface IResultCraw {
+export interface IResultCrawl {
     pos: number,
     no: string,
     driver_name: string,
@@ -20,7 +20,7 @@ export interface IResultCraw {
     laps: number,
     time: string,
     pts: number,
-    driver_info?: IDriverCraw
+    driver_info?: IDriverCrawl
 }
 export interface IResult {
     race_id: string,
@@ -32,7 +32,7 @@ export interface IResult {
     time: string,
     pts: number,
 }
-export interface IYearCraw {
+export interface IYearCrawl {
     year: Number,
-    races: Array<IRaceCraw>,
+    races: Array<IRaceCrawl>,
 }

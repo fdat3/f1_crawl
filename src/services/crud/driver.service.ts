@@ -39,7 +39,6 @@ export class DriverService extends CrudService<typeof Drivers> {
             ],
             attributes: ["car", "pos", [sequelize.fn('sum', sequelize.col('pts')), 'pts']],
             group: ["race_id", "race.grand_prix", "race.date", "driver.id", "car", "pos"],
-            // order: [["pts", "desc"]],
             raw: true
         })
         return result
@@ -67,7 +66,7 @@ export class DriverService extends CrudService<typeof Drivers> {
         return result
     }
     async getResultAllDriverByYear(params: { year: Number }) {
-        let driversOfRaceAYear: any = await Results.findAll({//get races of a team
+        let driversOfRaceAYear: any = await Results.findAll({
             where: {
                 "$race.year$": params.year
             },
@@ -81,8 +80,8 @@ export class DriverService extends CrudService<typeof Drivers> {
                     attributes: ["year"],
                 },
             ],
-            attributes: ["car", [sequelize.fn('sum', sequelize.col('pts')), 'pts']],
-            group: ["driver.id", "race.year", "car"],
+            attributes: [[sequelize.fn('sum', sequelize.col('pts')), 'pts']],
+            group: ["driver.id", "race.year"],
             order: [["pts", "desc"]],
             raw: true
         })

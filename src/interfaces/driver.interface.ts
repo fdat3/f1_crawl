@@ -1,6 +1,6 @@
-import { ITeamCraw } from "./team.interface";
+import { ITeamCrawl } from "./team.interface";
 
-export interface IDriverCraw {
+export interface IDriverCrawl {
     team_id: string,
     driver_number: number,
     name: string,
@@ -16,8 +16,8 @@ export interface IDriverCraw {
     date_of_birth: Date,
     place_of_birth: string,
     images: string
-    team_data?: ITeamCraw,
-    team_mate_data?: IDriverCraw
+    team_data?: ITeamCrawl,
+    team_mate_data?: IDriverCrawl
 }
 export interface IDriver {
     id?: string,

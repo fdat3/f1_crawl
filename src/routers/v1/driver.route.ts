@@ -10,7 +10,7 @@ export default class DriverRouter extends CrudRouter<typeof driverController> {
     customRouting() {
         this.router.get('/:driver_id/get-result-by-year/:year', this.route(this.getResultByYear))
         this.router.get('/:driver_name/get-result-by-name/:year', this.route(this.getResultDriverByName))
-        this.router.get('/get-result-by-year/:year', this.route(this.getResultAllTeamByYear))
+        this.router.get('/get-result-by-year/:year', this.route(this.getResultAllDriverByYear))
     }
     async getResultByYear(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)
@@ -24,9 +24,9 @@ export default class DriverRouter extends CrudRouter<typeof driverController> {
         const result = await this.controller.getResultATeamByName({ year, driver_name })
         this.onSuccess(res, result)
     }
-    async getResultAllTeamByYear(req: Request, res: Response) {
+    async getResultAllDriverByYear(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)
-        const result = await this.controller.getResultAllTeamByYear({ year })
+        const result = await this.controller.getResultAllDriverByYear({ year })
         this.onSuccess(res, result)
     }
 }

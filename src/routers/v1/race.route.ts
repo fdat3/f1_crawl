@@ -9,11 +9,11 @@ export default class RacesRouter extends CrudRouter<typeof raceController> {
         super(raceController)
     }
     customRouting() {
-        this.router.get('/craw/:year', this.crawdataMiddleware(), this.route(this.crawdata))
-        this.router.get('/sync-data', this.crawdataMiddleware(), this.route(this.syncData))
+        this.router.get('/crawl-result/:year', this.crawldataMiddleware(), this.route(this.crawlResult))
+        this.router.get('/sync-data', this.crawldataMiddleware(), this.route(this.syncData))
         this.router.get('/:grand_prix/get-result-by-name/:year', this.route(this.getResultInOneRace))
-        this.router.get('/craw-driver/:name', this.crawdataMiddleware(), this.route(this.crawDriver))
-        this.router.get('/craw-team/:name', this.crawdataMiddleware(), this.route(this.crawTeam))
+        this.router.get('/crawl-driver/:name', this.crawldataMiddleware(), this.route(this.crawlDriver))
+        this.router.get('/crawl-team/:name', this.crawldataMiddleware(), this.route(this.crawlTeam))
     }
     async getResultInOneRace(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)
@@ -25,24 +25,23 @@ export default class RacesRouter extends CrudRouter<typeof raceController> {
         this.controller.syncData()
         this.onSuccess(res, { message: "in sync" })
     }
-    async crawdata(req: Request, res: Response) {
+    async crawlResult(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)
-        const result = await this.controller.crawdata(year)//test with latest year
+        const result = await this.controller.crawlResult(year)
         this.onSuccess(res, result)
     }
 
-    async crawDriver(req: Request, res: Response) {
+    async crawlDriver(req: Request, res: Response) {
         const name: string = req.params.name
-        const result = await this.controller.crawDrivers(name)//test with latest year
+        const result = await this.controller.crawlDrivers(name)
         this.onSuccess(res, result)
     }
-    async crawTeam(req: Request, res: Response) {
+    async crawlTeam(req: Request, res: Response) {
         const team: string = req.params.name
-        const result = await this.controller.crawTeam(team)//test with latest year
+        const result = await this.controller.crawlTeam(team)
         this.onSuccess(res, result)
     }
-    crawdataMiddleware(): any[] {
-        // return [blockMiddleware.run()]
+    crawldataMiddleware(): any[] {
         return []
     }
 }

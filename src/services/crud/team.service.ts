@@ -59,7 +59,7 @@ export class TeamService extends CrudService<typeof Teams> {
         })
         return result
     }
-    async getResultALLTeamByYear(params: { year: Number }) {
+    async getResultAllTeamByYear(params: { year: Number }) {
         let driversOfRaceAYear: any = await Results.findAll({
             where: {
                 "$race.year$": params.year
@@ -70,7 +70,7 @@ export class TeamService extends CrudService<typeof Teams> {
                     attributes: [],
                     include: [{
                         association: "team",
-                        attributes: ["name"],
+                        attributes: ["fullname_team"],
 
                     }]
 

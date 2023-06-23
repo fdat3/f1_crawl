@@ -14,7 +14,7 @@ export class DriverController extends CrudController<typeof driverService> {
         const result = await this.service.getResultADriverByName(params)
         return result
     }
-    async getResultAllTeamByYear(params: { year: Number }) {
+    async getResultAllDriverByYear(params: { year: Number }) {
         const result = await this.service.getResultAllDriverByYear(params)
         return result
     }
