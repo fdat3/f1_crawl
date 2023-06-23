@@ -20,28 +20,6 @@ export class TeamService extends CrudService<typeof Teams> {
         }
         return team
     }
-    async getResultATeamByYear(params: { year: Number, team_id: String }) {
-        const result = await Results.findAll({
-            where: {
-                "$race.year$": params.year,
-                "$driver.team_id$": params.team_id
-            },
-            include: [
-                {
-                    association: "race",
-                    attributes: ["grand_prix", "date"]
-                },
-                {
-                    association: "driver",
-                    attributes: []
-                }
-            ],
-            attributes: [[sequelize.fn('sum', sequelize.col('pts')), 'pts']],
-            group: ["race_id", "race.grand_prix", "race.date", "driver.team_id"],
-            raw: true
-        })
-        return result
-    }
     async getResultTeamByName(params: { year: Number, team_name: String }) {
         const result = await Results.findAll({
             where: {
@@ -59,7 +37,7 @@ export class TeamService extends CrudService<typeof Teams> {
         })
         return result
     }
-    async getResultAllTeamByYear(params: { year: Number }) {
+    async getTeamTableRanking(params: { year: Number }) {
         let driversOfRaceAYear: any = await Results.findAll({
             where: {
                 "$race.year$": params.year

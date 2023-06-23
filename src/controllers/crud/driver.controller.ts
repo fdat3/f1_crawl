@@ -6,16 +6,12 @@ export class DriverController extends CrudController<typeof driverService> {
     constructor() {
         super(driverService)
     }
-    async getResultATeamByYear(params: { year: Number, driver_id: String }) {
-        const result = await this.service.getResultADriverByYear(params)
+    async getResultDriverByName(params: { year: Number, driver_name: String }) {
+        const result = await this.service.getResultDriverByName(params)
         return result
     }
-    async getResultATeamByName(params: { year: Number, driver_name: String }) {
-        const result = await this.service.getResultADriverByName(params)
-        return result
-    }
-    async getResultAllDriverByYear(params: { year: Number }) {
-        const result = await this.service.getResultAllDriverByYear(params)
+    async getDriverTableRank(params: { year: Number }) {
+        const result = await this.service.getDriverTableRank(params)
         return result
     }
 }

@@ -21,7 +21,7 @@ export class DriverService extends CrudService<typeof Drivers> {
         }
         return driver
     }
-    async getResultADriverByYear(params: { year: Number, driver_id: String }) {
+    async getResultDriverByYear(params: { year: Number, driver_id: String }) {
         const result = await Results.findAll({
             where: {
                 "$race.year$": params.year,
@@ -43,7 +43,10 @@ export class DriverService extends CrudService<typeof Drivers> {
         })
         return result
     }
-    async getResultADriverByName(params: { year: Number, driver_name: String }) {
+    async getResultDriverByName(params: { year: Number, driver_name: String }) {
+
+
+
         const result = await Results.findAll({
             where: {
                 "$race.year$": params.year,
@@ -65,7 +68,7 @@ export class DriverService extends CrudService<typeof Drivers> {
         })
         return result
     }
-    async getResultAllDriverByYear(params: { year: Number }) {
+    async getDriverTableRank(params: { year: Number }) {
         let driversOfRaceAYear: any = await Results.findAll({
             where: {
                 "$race.year$": params.year

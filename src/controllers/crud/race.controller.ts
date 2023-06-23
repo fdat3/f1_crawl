@@ -15,105 +15,13 @@ const schedule = require("node-schedule");
 export class RaceController extends CrudController<typeof racesService> {
     constructor() {
         super(racesService)
-        schedule.scheduleJob('0 0 */1 */1 *', async () => {//sync data everyday
-            this.syncData()
-        });
     }
     async getResultInOneRaces(params: { year: Number, grand_prix: String }) {
         const result = await this.service.getResultInOneRace(params)
         return result
     }
-    async syncData() {
-        const transaction = await sequelize.transaction();
-        try {
-
-            let rangeYears: Array<Number> = await this.getRangeOfYears()
-            const lastRace: any = await this.service.getItem({
-                attributes: ["year"],
-                order: [["year", "DESC"]],
-                transaction,
-                where: {}
-            })//save to db
-            const lastYear: Number = lastRace.year
-            const lastYearInF1: Number = rangeYears[0]
-            if (lastYear < lastYearInF1) {//get data for new years
-                const indexOfLastYear: number = rangeYears.indexOf(lastYear)
-                rangeYears = rangeYears.slice(0, indexOfLastYear)
-            } else {
-                rangeYears = []
-            }
-            console.log("rangeYears ", rangeYears)
-            if (rangeYears.length > 0) {
-                console.log(`in sync : ${rangeYears[0]} => ${rangeYears[rangeYears.length - 1]}`)
-                await resultService.delete({ where: {}, transaction })
-                await this.service.delete({ where: {}, transaction })
-                await driverService.delete({ where: {}, transaction })
-                await teamService.delete({ where: {}, transaction })
-                for (let y = 0; y < rangeYears.length; y++) {
-                    const year: Number = rangeYears[y]
-                    const dataCrawl: IYearCrawl = await this.crawlResult(year)
-                    // const dataCrawl: IYearCrawl = fullDataCrawl[y]
-                    const yearSeason = dataCrawl;
-                    let bodyRace: IRace = null
-                    for (let r = 0; r < yearSeason.races.length; r++) {
-                        const racesInYear = yearSeason.races[r];
-                        bodyRace = {
-                            grand_prix: racesInYear.grand_prix,
-                            date: new Date(moment(racesInYear.date, "DD MMM YYYY").add(12, "hours").valueOf()),
-                            year: moment(racesInYear.date, "DD MMM YYYY").year()
-                        }
-                        const raceItem: any = await this.service.findOrCreate(bodyRace, {
-                            transaction,
-                            where: {}
-                        })//save to db
-                        let bodyDriverOfRace: IResult = null
-                        for (let d = 0; d < racesInYear.drivers.length; d++) {
-                            const driverOfRace = racesInYear.drivers[d];
-                            //create team
-                            const bodyTeam = await this.convertDataCrawledToPrimaryTeam(driverOfRace.driver_info.team_data)
-                            const teamItem: any = await teamService.findOrCreate(bodyTeam, {
-                                transaction,
-                                where: {}
-                            })//save to db
-                            //create driver
-                            const bodyDriver: IDriver = await this.convertDataCrawledToPrimaryDriver(driverOfRace.driver_info, teamItem.id, driverOfRace.driver_name)
-                            const driverItem: any = await driverService.findOrCreate(bodyDriver, {
-                                transaction,
-                                where: {}
-                            })//save to db
-                            //create driver of race
-                            bodyDriverOfRace = {
-                                race_id: raceItem.id,
-                                driver_id: driverItem.id,
-                                pos: isNaN(driverOfRace.pos) ? 9999 : driverOfRace.pos,
-                                no: driverOfRace.no,
-                                car: driverOfRace.car,
-                                laps: isNaN(driverOfRace.laps) ? null : driverOfRace.laps,
-                                time: driverOfRace.time,
-                                pts: isNaN(driverOfRace.pts) ? 0 : driverOfRace.pts,
-                            }
-                            await resultService.findOrCreate(bodyDriverOfRace, {
-                                transaction,
-                                where: {}
-                            })//save to db
-                            console.log(`saved data to db:${bodyRace.year}, ${bodyRace.grand_prix}, ${bodyDriver.name}, ${bodyTeam.fullname_team}`)
-                        }
-                    }
-                    console.log("sync done year: ", yearSeason.year)
-                }
-                transaction.commit();
-            } else {
-                console.log(`no new data to sync: latest data on F1 is ${lastYearInF1} and latest data on server is ${lastYear}`)
-            }
-            // return { sync: "ok" }
-        } catch (error) {
-            console.log(error);
-            transaction.rollback();
-            throw error;
-        }
-    }
+    // 
     async crawlResult(year: Number) {
-        const transaction = await sequelize.transaction();
         console.log("getting data: ", year)
         const url = `https://www.formula1.com/en/results/jcr:content/resultsarchive.html/${year}/races.html`
         const html = await axios.get(url)
@@ -123,12 +31,7 @@ export class RaceController extends CrudController<typeof racesService> {
             date: $(element).find('td:nth-of-type(3)').text().trim()
         })).get()
         racesInYear.shift()
-        const result: any = await racesService.findOrCreate(racesInYear, {
-            transaction,
-            where: {}
-        })
-        console.log("🚀 ~ file: race.controller.ts:127 ~ RaceController ~ crawlResult ~ racesInYear:", racesInYear)
-        return result
+        return racesInYear
     }
     async getRangeOfYears() {
         const url = 'https://www.formula1.com/en/results/jcr:content/resultsarchive.html/2023/races.html'
@@ -234,7 +137,6 @@ export class RaceController extends CrudController<typeof racesService> {
         let dataCrawl: any = {}
         let player_1: string = null
         let player_2: string = null
-        let driver: IDriverCrawl = null
         const numberOfBrandLogo: number = $(".brand-logo").length
         if (numberOfBrandLogo > 0) {
             $("tr").each((i: number, element: any) => {
@@ -243,14 +145,10 @@ export class RaceController extends CrudController<typeof racesService> {
                 dataCrawl[key] = value
             })
             $(".information").each((i: number, element: any) => {
-                //get key like name, place-of-birth...
-                //trans data to json 
                 const value = $(element).find('div').text().trim()
                 dataCrawl['bio'] = value
             })
             $(".brand-logo").each((i: number, element: any) => {
-                //get key like name, place-of-birth...
-                //trans data to json 
                 const value = $(element).find('img').attr('src')
                 dataCrawl['logo'] = value
             })

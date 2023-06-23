@@ -10,8 +10,7 @@ export default class RacesRouter extends CrudRouter<typeof raceController> {
     }
     customRouting() {
         this.router.get('/crawl-result/:year', this.crawldataMiddleware(), this.route(this.crawlResult))
-        this.router.get('/sync-data', this.crawldataMiddleware(), this.route(this.syncData))
-        this.router.get('/:grand_prix/get-result-by-name/:year', this.route(this.getResultInOneRace))
+        this.router.get('/get-race-result-by-grandprix/:year/:grand_prix', this.route(this.getResultInOneRace))
         this.router.get('/crawl-driver/:name', this.crawldataMiddleware(), this.route(this.crawlDriver))
         this.router.get('/crawl-team/:name', this.crawldataMiddleware(), this.route(this.crawlTeam))
     }
@@ -20,10 +19,6 @@ export default class RacesRouter extends CrudRouter<typeof raceController> {
         const grand_prix: String = req.params.grand_prix
         const result = await this.controller.getResultInOneRaces({ year, grand_prix })
         this.onSuccess(res, result)
-    }
-    async syncData(req: Request, res: Response) {
-        this.controller.syncData()
-        this.onSuccess(res, { message: "in sync" })
     }
     async crawlResult(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)

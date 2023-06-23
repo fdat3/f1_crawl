@@ -8,16 +8,8 @@ export default class TeamRouter extends CrudRouter<typeof teamController> {
         super(teamController)
     }
     customRouting() {
-        this.router.get('/:team_id/get-result-by-year/:year', this.route(this.getResultByYear))
-        this.router.get('/get-result-by-year/:year', this.route(this.getResultAllTeamByYear))
-        this.router.get('/:team_name/get-result-by-name/:year', this.route(this.getResultDriverByName))
-
-    }
-    async getResultByYear(req: Request, res: Response) {
-        const year: Number = parseInt(req.params.year)
-        const team_id: String = req.params.team_id
-        const result = await this.controller.getResultATeamByYear({ year, team_id })//test with latest year
-        this.onSuccess(res, result)
+        this.router.get('/table-rank/:year', this.route(this.getTeamTableRanking))
+        this.router.get('/get-result-by-name/:team_name/:year', this.route(this.getResultDriverByName))
     }
     async getResultDriverByName(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)
@@ -25,9 +17,9 @@ export default class TeamRouter extends CrudRouter<typeof teamController> {
         const result = await this.controller.getResultTeamByName({ year, team_name })
         this.onSuccess(res, result)
     }
-    async getResultAllTeamByYear(req: Request, res: Response) {
+    async getTeamTableRanking(req: Request, res: Response) {
         const year: Number = parseInt(req.params.year)
-        const result = await this.controller.getResultAllTeamByYear({ year })//test with latest year
+        const result = await this.controller.getTeamTableRanking({ year })//test with latest year
         this.onSuccess(res, result)
     }
 }

@@ -1,12 +1,11 @@
 {
     "name": "express-typescript-starter",
     "version": "0.1.0",
-    "description": "A starting point for Node.js express apps with TypeScript",
     "repository": {
         "type": "git",
         "url": "https://github.com/sahat/hackathon-starter.git"
     },
-    "author": "Trinh Minh Tuan",
+    "author": "fdat3",
     "license": "MIT",
     "scripts": {
         "start": "npm run serve:gcloud",
