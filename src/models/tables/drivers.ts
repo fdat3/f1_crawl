@@ -57,20 +57,6 @@ export const Drivers = sequelize.define(
         avatar: {
             type: DataTypes.STRING,
             allowNull: true,
-        },
-        created_at: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW,
-        },
-        updated_at: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW,
-        },
-        deleted_at: {
-            type: DataTypes.DATE,
-            allowNull: true,
         }
     },
     {
