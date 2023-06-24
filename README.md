@@ -222,7 +222,7 @@ The result is:
 
 Don't worry, in each API I write in this project, I always have an example to use, you can follow it in Postman to use!
 
-### 6. Postman API docs
+### 7. Postman API docs
 
 you can import JSON Postman to see all the APIs I write available:
 `f1_api.json`
