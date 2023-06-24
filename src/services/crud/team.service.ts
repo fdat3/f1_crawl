@@ -1,7 +1,6 @@
 import { ICrudOption } from '@/interfaces';
 import { CrudService } from '../crudService.pg'
-import { Teams, Races, Results } from '@/models/tables'
-import sequelize from 'sequelize';
+import { Teams } from '@/models/tables'
 
 export class TeamService extends CrudService<typeof Teams> {
     constructor() {

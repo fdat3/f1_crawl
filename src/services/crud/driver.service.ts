@@ -1,7 +1,6 @@
 import { ICrudOption } from '@/interfaces';
 import { CrudService } from '../crudService.pg'
-import { Drivers, Results } from '@/models/tables'
-import sequelize from 'sequelize';
+import { Drivers } from '@/models/tables'
 
 export class DriverService extends CrudService<typeof Drivers> {
     constructor() {

@@ -1,15 +1,9 @@
-import { driverService, resultService, racesService, teamService } from '@/services'
+import { racesService } from '@/services'
 import { CrudController } from '@/controllers'
-import { ICrudOption, IResult, IResultCrawl, IRace, IRaceCrawl, ITeam, ITeamCrawl, IYearCrawl } from '@/interfaces'
+import { IRaceCrawl, ITeamCrawl } from '@/interfaces'
 import axios from 'axios';
-import { IDriver, IDriverCrawl } from '@/interfaces/driver.interface';
+import { IDriverCrawl } from '@/interfaces/driver.interface';
 const cheerio = require('cheerio');
-import {
-    sequelize
-} from '@/models'
-import * as moment from "moment";
-import { result } from 'lodash';
-const schedule = require("node-schedule");
 
 
 export class RaceController extends CrudController<typeof racesService> {
@@ -17,7 +11,7 @@ export class RaceController extends CrudController<typeof racesService> {
         super(racesService)
     }
 
-    // 
+    // crawl result
     async crawlResult(year: Number) {
         console.log("getting data: ", year)
         const url = `https://www.formula1.com/en/results/jcr:content/resultsarchive.html/${year}/races.html`
@@ -41,6 +35,7 @@ export class RaceController extends CrudController<typeof racesService> {
         });
         return rangeYears
     }
+    // Craw driver
     async crawlDrivers(name: string) {
         const id: string = name.toLowerCase().replace(/ /g, "-")
         const url = `https://www.formula1.com/en/drivers/${id}.html`
@@ -54,6 +49,7 @@ export class RaceController extends CrudController<typeof racesService> {
             const dataCrawl: any = {}
             const numberOfimageInPage: number = $(".fom-adaptiveimage").length
             if (numberOfimageInPage > 0) {
+                // get value from html structure on page
                 $(".driver-details").each((i: number, element: any) => {
                     //get key like name, place-of-birth...
                     //trans data to json 
@@ -127,6 +123,7 @@ export class RaceController extends CrudController<typeof racesService> {
         }
         return driver
     }
+    // Crawl team
     async crawlTeam(name: string) {
         const url = `https://www.formula1.com/en/teams/${name}.html`
         const html = await axios.get(url)
@@ -175,6 +172,11 @@ export class RaceController extends CrudController<typeof racesService> {
         }
         return team
     }
+
+    /*
+        Crawl path, path is value behind / on the url, 
+        you need that to crawl any data relate
+    */
     async crawlPath(path: string) {
         const url = `https://www.formula1.com/${path}`
         const html = await axios.get(url)
@@ -190,55 +192,6 @@ export class RaceController extends CrudController<typeof racesService> {
         }
         const team: ITeamCrawl = dataCrawl
         return team
-    }
-    convertDataCrawledToPrimaryTeam(body: ITeamCrawl) {
-        let team_highest_race_finish: number = null
-        if (body.highest_race_finish) {
-            const driver_highest_race_finish_cut_first: string = String(body.highest_race_finish).replace("1 (x", "");
-            team_highest_race_finish = parseInt(driver_highest_race_finish_cut_first.replace(")", ""))
-        }
-        const bodyTeam: ITeam = {
-            base: body.base,
-            team_chief: body.team_chief,
-            technical_chief: body.technical_chief,
-            chassis: body.chassis,
-            power_unit: body.power_unit,
-            first_team_entry: body.first_team_entry,
-            world_championships: body.world_championships === null ? null : body.world_championships,
-            highest_race_finish: team_highest_race_finish,
-            pole_positions: body.pole_positions === null ? null : body.pole_positions,
-            fastest_laps: body.fastest_laps === null ? null : body.fastest_laps,
-            fullname_team: body.fullname_team,
-            logo: body.logo,
-            bio: body.bio,
-            images: body.images
-        }
-        return bodyTeam
-    }
-    convertDataCrawledToPrimaryDriver(body: IDriverCrawl, team_id: string, name: string) {
-        let driver_highest_race_finish: number = null
-        if (body.highest_race_finish) {
-            const driver_highest_race_finish_cut_first: string = String(body.highest_race_finish).replace("1 (x", "");
-            driver_highest_race_finish = parseInt(driver_highest_race_finish_cut_first.replace(")", ""))
-        }
-        const bodyDriver: IDriver = {
-            team_id,
-            name,
-            country: body.country,
-            podiums: body.podiums === null ? null : body.podiums,
-            points: body.points === null ? null : body.points,
-            grands_prix_entered: body.grands_prix_entered === null ? null : body.grands_prix_entered,
-            world_championships: body.world_championships === null ? null : body.world_championships,
-            highest_race_finish: driver_highest_race_finish,
-            highest_grid_position: body.highest_grid_position === null ? null : body.highest_grid_position,
-            date_of_birth: body.date_of_birth ? new Date(moment(body.date_of_birth, "DD/MM/YYYY").add(12, "hours").valueOf()) : null,
-            place_of_birth: body.place_of_birth,
-            driver_number: 0,
-            bio: undefined,
-            images: body.images,
-            avatar: body.avatar
-        }
-        return bodyDriver
     }
 
 }
