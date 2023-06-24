@@ -50,7 +50,8 @@ Here is the server craw data from the formula1.com site including:
 ### How To Use APIs
 
 - Refer to ERD image: erd-diagram.png
-![image](https://github.com/fdat3/f1_crawl_data/assets/92992993/61ee17bf-ca28-4731-b1fb-a695e5a1cf60)
+![image](https://github.com/fdat3/f1_crawl/assets/92992993/63e70d4d-fe7c-4f9f-84a8-cdaadb68da6b)
+
 
 - If you use an empty database, you can sync data by calling the API: 
 [http://localhost:4000/api/v1/race/crawl-driver/:name] --> To crawl driver
