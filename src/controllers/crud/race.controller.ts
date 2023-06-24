@@ -16,10 +16,7 @@ export class RaceController extends CrudController<typeof racesService> {
     constructor() {
         super(racesService)
     }
-    async getResultInOneRaces(params: { year: Number, grand_prix: String }) {
-        const result = await this.service.getResultInOneRace(params)
-        return result
-    }
+
     // 
     async crawlResult(year: Number) {
         console.log("getting data: ", year)

@@ -1,0 +1,1378 @@
+{
+	"info": {
+		"_postman_id": "1bb3d1eb-9784-4225-8b2d-6c90ac5cf793",
+		"name": "f1_crawl",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21283112"
+	},
+	"item": [
+		{
+			"name": "Races",
+			"item": [
+				{
+					"name": "Get List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/race?fields=[\"$all\"]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"race"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\"]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/race/:id?fields=[\"$all\"]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"race",
+								":id"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\"]"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cf396f10-088e-11ee-abf4-9fba42ceac9a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n                    \"grand_prix\": \"Belgium\",\n                    \"date\": \"2022-8-28 12:00:00.000 +0700\",\n                    \"year\": \"2022\"\n}"
+						},
+						"url": "http://localhost:4000/api/v1/race"
+					},
+					"response": [
+						{
+							"name": "Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n                    \"grand_prix\": \"Belgium\",\n                    \"date\": \"2022-8-28 12:00:00.000 +0700\",\n                    \"year\": \"2022\"\n}"
+								},
+								"url": "http://localhost:4000/api/v1/race"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname_team\": \"Scuderia Ferrari\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/race/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"race",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname_team\": \"Scuderia Ferrari\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/race/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"race",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/race/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"race",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "0332fb2e-21e1-412d-b4f1-783ec267e1a0"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/race/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"race",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "0332fb2e-21e1-412d-b4f1-783ec267e1a0"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Crawl Data",
+			"item": [
+				{
+					"name": "Crawl Driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/race/crawl-driver/:name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"race",
+								"crawl-driver",
+								":name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "sergio-perez",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "Lewis Hamilton"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crawl Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/race/crawl-team/:fullname_team",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"race",
+								"crawl-team",
+								":fullname_team"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "sergio-perez",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "fullname_team",
+									"value": "Ferrari"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crawl Race",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/v1/race/crawl-result/1970"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Get List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/team?fields=[\"$all\"]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"team"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\"]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/team/:id?fields=[\"$all\"]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"team",
+								":id"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\"]"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a64544a3-23ea-49f2-a0c1-43d5c9e0b0d6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:4000/api/v1/team"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Oracle Red Bull Racing\",\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/team/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"team",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "457ccf20-26cd-11ea-96c0-a3e7d41e2359"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/team/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"team",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Player",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/team/:id?fields=[\"$all\", {\"drivers\":[\"$all\"]}]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"team",
+								":id"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\", {\"drivers\":[\"$all\"]}]"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a64544a3-23ea-49f2-a0c1-43d5c9e0b0d6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Drivers",
+			"item": [
+				{
+					"name": "Get List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/driver?fields=[\"$all\",{\"team\":[\"$all\"]}]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"driver"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\",{\"team\":[\"$all\"]}]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Teammate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/driver?fields=[\"$all\",{\"team\":[\"fullname_team\"]}]&where={\"$and\":[{\"$team.base$\":{\"$ne\":\"\"}},{\"$or\":[{\"$team.fullname_team$\": {\"$iLike\":\"%25alphatauri%25\"}}]}]}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"driver"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\",{\"team\":[\"fullname_team\"]}]"
+								},
+								{
+									"key": "where",
+									"value": "{\"$and\":[{\"$team.base$\":{\"$ne\":\"\"}},{\"$or\":[{\"$team.fullname_team$\": {\"$iLike\":\"%25alphatauri%25\"}}]}]}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/driver/:id?fields=[\"$all\"]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"driver",
+								":id"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\"]"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9e7ef6d7-ecac-4692-9cf9-3f53bf505b65"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"team_id\": \"844c3096-d043-48b1-aaeb-64f6e9e6cdd3\",\n    \"name\": \"Sebastian Vettel\",\n    \"driver_number\": null,\n    \"bio\": \"N/A\",\n    \"avatar\": \"N/A\",\n    \"team\": \"Aston Martin Aramco Mercedes\",\n    \"country\": \"N/A\",\n    \"podiums\": null,\n    \"points\": null,\n    \"grands_prix_entered\": null,\n    \"world_championships\": null,\n    \"highest_race_finish\": 1,\n    \"highest_grid_position\": null,\n    \"date_of_birth\": null,\n    \"place_of_birth\": null\n}"
+						},
+						"url": "http://localhost:4000/api/v1/driver"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/driver/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"driver",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/driver/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"driver",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Result",
+			"item": [
+				{
+					"name": "Get All Result",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result?fields=[\"$all\"]&page=10&limit=30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\"]"
+								},
+								{
+									"key": "page",
+									"value": "10"
+								},
+								{
+									"key": "limit",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Result In One Race",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/get-result-by-grandprix/:year/:grand_prix",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								"get-result-by-grandprix",
+								":year",
+								":grand_prix"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\",{\"result\":[\"$all\"]}]",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "[[\"results.pts\",\"desc\"]]",
+									"disabled": true
+								},
+								{
+									"key": "where",
+									"value": "[{\"$results.car$\": {\"$iLike\":\"%ferrari%25\"}}]",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "year",
+									"value": "2022"
+								},
+								{
+									"key": "grand_prix",
+									"value": "Monaco"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Result In One Race",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/v1/result/get-result-by-grandprix/:year/:grand_prix",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"result",
+										"get-result-by-grandprix",
+										":year",
+										":grand_prix"
+									],
+									"query": [
+										{
+											"key": "fields",
+											"value": "[\"$all\",{\"result\":[\"$all\"]}]",
+											"disabled": true
+										},
+										{
+											"key": "order",
+											"value": "[[\"results.pts\",\"desc\"]]",
+											"disabled": true
+										},
+										{
+											"key": "where",
+											"value": "[{\"$results.car$\": {\"$iLike\":\"%ferrari%25\"}}]",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "year",
+											"value": "2022"
+										},
+										{
+											"key": "grand_prix",
+											"value": "Japan"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Top Driver per grandprix",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result?fields=[\"$all\",{\"$filter\":{\"pos\":1}},{\"driver\":[\"name\"]},{\"race\":[\"$all\"]}]",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "[\"$all\",{\"$filter\":{\"pos\":1}},{\"driver\":[\"name\"]},{\"race\":[\"$all\"]}]"
+								},
+								{
+									"key": "page",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drivers Table Ranking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/v1/result/driver-table-rank/2023"
+					},
+					"response": []
+				},
+				{
+					"name": "Teams Table Raking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/v1/result/team-table-rank/2022"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Driver Ranking by Name in another grandprix",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/get-driver-result-by-name/:driver_name/2022",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								"get-driver-result-by-name",
+								":driver_name",
+								"2022"
+							],
+							"variable": [
+								{
+									"key": "driver_name",
+									"value": "Lewis Hamilton"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Driver Ranking by Name in another grandprix",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/v1/result/get-driver-result-by-name/:driver_name/2022",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"result",
+										"get-driver-result-by-name",
+										":driver_name",
+										"2022"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "driver_name",
+											"value": "Lewis Hamilton"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Team Ranking by Name in grandprix",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/get-team-result-by-name/:team_name/2022",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								"get-team-result-by-name",
+								":team_name",
+								"2022"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "team_name",
+									"value": "Ferrari"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Team Ranking by Name in grandprix",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/v1/result/get-team-result-by-name/:team_name/2022",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"result",
+										"get-team-result-by-name",
+										":team_name",
+										"2022"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "team_name",
+											"value": "Ferrari"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Create Result",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"driver_id\": \"f1202f52-f9f0-4cc8-92e6-108fe63dfad5\",\r\n    \"race_id\": \"82242ae9-2177-411c-b8bd-446b91c7f164\",\r\n    \"pos\": 11,\r\n    \"no\": \"18\",\r\n    \"car\": \"Aston Matin Aramco Mercedes\",\r\n    \"laps\": 44,\r\n    \"time\": \"+103.078s\",\r\n    \"pts\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/result"
+					},
+					"response": [
+						{
+							"name": "Create Result",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"driver_id\": \"f1202f52-f9f0-4cc8-92e6-108fe63dfad5\",\r\n    \"race_id\": \"82242ae9-2177-411c-b8bd-446b91c7f164\",\r\n    \"pos\": 11,\r\n    \"no\": \"18\",\r\n    \"car\": \"Aston Matin Aramco Mercedes\",\r\n    \"laps\": 44,\r\n    \"time\": \"+103.078s\",\r\n    \"pts\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4000/api/v1/result"
+							},
+							"_postman_previewlanguage": "",
+							"header": [
+								{}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Edit Result",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"driver_id\": \"36b9c0d4-bc15-4b41-b9c4-56b7f2e3efa1\",\r\n    \"race_id\": \"20fe420d-275c-42a8-8aed-8caecb76d9cb\",\r\n    \"pos\": 19,\r\n                            \"no\": \"1\",\r\n                            \"car\": \"Red Bull Racing RBPT\",\r\n                            \"laps\": 54,\r\n                            \"time\": \"DNF\",\r\n                            \"pts\": 0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6794433e-e19b-43ee-8371-bf8edc585271"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit Result",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"driver_id\": \"36b9c0d4-bc15-4b41-b9c4-56b7f2e3efa1\",\r\n    \"race_id\": \"20fe420d-275c-42a8-8aed-8caecb76d9cb\",\r\n    \"pos\": 19,\r\n                            \"no\": \"1\",\r\n                            \"car\": \"Red Bull Racing RBPT\",\r\n                            \"laps\": 54,\r\n                            \"time\": \"DNF\",\r\n                            \"pts\": 0\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/result/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"result",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6794433e-e19b-43ee-8371-bf8edc585271"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete Result",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/v1/result/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"result",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
