@@ -385,7 +385,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:4000/api/v1/race/crawl-result/1970"
+						"url": "http://localhost:4000/api/v1/race/crawl-result/2003"
 					},
 					"response": []
 				}
@@ -878,23 +878,6 @@
 								":year",
 								":grand_prix"
 							],
-							"query": [
-								{
-									"key": "fields",
-									"value": "[\"$all\",{\"result\":[\"$all\"]}]",
-									"disabled": true
-								},
-								{
-									"key": "order",
-									"value": "[[\"results.pts\",\"desc\"]]",
-									"disabled": true
-								},
-								{
-									"key": "where",
-									"value": "[{\"$results.car$\": {\"$iLike\":\"%ferrari%25\"}}]",
-									"disabled": true
-								}
-							],
 							"variable": [
 								{
 									"key": "year",
@@ -902,7 +885,7 @@
 								},
 								{
 									"key": "grand_prix",
-									"value": "Monaco"
+									"value": "United States"
 								}
 							]
 						}
@@ -970,7 +953,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/v1/result?fields=[\"$all\",{\"$filter\":{\"pos\":1}},{\"driver\":[\"name\"]},{\"race\":[\"$all\"]}]",
+							"raw": "http://localhost:4000/api/v1/result?fields=[\"$all\",{\"$filter\":{\"pos\":1}},{\"driver\":[\"name\"]},{\"race\":[\"grand_prix\", \"year\"]}]&where={\"$and\":[{\"$race.year$\":{\"$eq\":\"2023\"}}]}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -984,11 +967,15 @@
 							"query": [
 								{
 									"key": "fields",
-									"value": "[\"$all\",{\"$filter\":{\"pos\":1}},{\"driver\":[\"name\"]},{\"race\":[\"$all\"]}]"
+									"value": "[\"$all\",{\"$filter\":{\"pos\":1}},{\"driver\":[\"name\"]},{\"race\":[\"grand_prix\", \"year\"]}]"
+								},
+								{
+									"key": "where",
+									"value": "{\"$and\":[{\"$race.year$\":{\"$eq\":\"2023\"}}]}"
 								},
 								{
 									"key": "page",
-									"value": "7",
+									"value": "",
 									"disabled": true
 								},
 								{
@@ -1006,7 +993,27 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:4000/api/v1/result/driver-table-rank/2023"
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/driver-table-rank/:year",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								"driver-table-rank",
+								":year"
+							],
+							"variable": [
+								{
+									"key": "year",
+									"value": "2023"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -1015,7 +1022,27 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:4000/api/v1/result/team-table-rank/2022"
+						"url": {
+							"raw": "http://localhost:4000/api/v1/result/team-table-rank/:year",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"result",
+								"team-table-rank",
+								":year"
+							],
+							"variable": [
+								{
+									"key": "year",
+									"value": "2022"
+								}
+							]
+						}
 					},
 					"response": []
 				},
