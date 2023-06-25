@@ -2,7 +2,7 @@
 
 Here is the server craw data from the formula1.com site including:
 
-1. All data of teams ( 2022 - 2023 ): working and not work (10 records).
+1. All data of teams ( 2022 - 2023 ): working and not working (10 records).
 2. All data of drivers ( 2022 - 2023 ): working and not working (24 records).
 3. All races from 2022 to 2023:  (30 records).
 4. All race results from 2022 to 2023: (601 records).
@@ -14,22 +14,23 @@ Here is the server craw data from the formula1.com site including:
 1. Check node version(14.21.3) and TypeScript [https://www.npmjs.com/package/typescript/v/5.0.4](https://www.npmjs.com/package/typescript/v/5.0.4)
 2. Install [https://www.npmjs.com/package/sequelize-cli](https://www.npmjs.com/package/sequelize-cli) to migrate Database
 3. Install PostgreSQL
-4. Prepare .env file connect to database
+4. Prepare .env file connected to the database
 5. Run `npm install`
 6. Run `npm run start:dev` or parallel (`npm run watch-ts` + `npm run watch-babel`) ==> Run server local
 7. Run `npm run db:migrate` ==> this command is migrate database **(important)** or you can import database from file &#96;databaseCrawedDataF1&#96;
 
 # How to migrate the database
 
-1. Run `npm run db:migration file-name.js` (please replace name table and Update migrate file content)
-2. Run `npm run db:migrate` this command is migrate database(impotant)
-3. Run `npm run db:migrate:undo` undo latest migration file
+1. Run `npm run db:migration file-name.js` (please replace the name table and Update migrate file content)
+2. Run `npm run db:migrate` this command migrates database(important)
+3. Run `npm run db:migrate:undo` undo the latest migration file
 
 ### Folder Structure Conventions
 
     ├── build                   # Compiled files (`npm run watch-ts` or npm run start:dev`) for local
     ├── dist                    # Compiled files (npm run build) for prod
     ├── src
+        ├── backup              # management json api file and database backup file
         ├── index.ts            # app index
         ├── server.ts           # server: run multi-core by cluster
         ├── common              # managerment and config sequelize ORM, Migration
@@ -57,7 +58,10 @@ Here is the server craw data from the formula1.com site including:
 [http://localhost:4000/api/v1/race/crawl-driver/:name] --> To crawl driver
 [http://localhost:4000/api/v1/race/crawl-team/:fullname_team] --> To crawl team
 
-1. fields: it's an array, you can get the columns you need or all with ?fields=["$all"] and you can join table
+- Or you can use my database backup in backup folder
+[]
+
+1. fields: it's an array, you can get the columns you need or all with ?fields=["$all"] and you can join the table
    **example 1:** [http://localhost:4000/api/v1/race?fields=["grand_prix"]](http://localhost:4000/api/v1/race?fields=["grand_prix"])
 
 ```json
@@ -146,7 +150,6 @@ The result is
 or
 `http://localhost:4000/api/v1/driver?fields=["$all",{"team":["$all"]}]&where={"$team.fullname_team$": {"$eq":"Scuderia Ferrari"}}`
 **Detail:** get all drivers in the team "Scuderia Ferrari"
-_You can refer to more operations at:: https://sequelize.org/docs/v6/core-concepts/model-querying-basics_
 
 ### 5. Order: You can sort the position of the main table or the child table
 
@@ -161,7 +164,7 @@ You can custom API for this project, this is some examples:
 
 [http://localhost:4000/api/v1/result/get-result-by-grandprix/:year/:grand_prix] 
 
-I will find results of Monaco grand Prix in 2022
+I will find the results of the Monaco grand Prix in 2022
 
 The result is
 
@@ -226,7 +229,7 @@ Don't worry, in each API I write in this project, I always have an example to us
 ### 7. Postman API docs
 
 you can import JSON Postman to see all the APIs I write available:
-`f1_api.json`
+`f1_crawl.postman_collection.json`
 or you can use this link:
 [https://api.postman.com/collections/21283112-1bb3d1eb-9784-4225-8b2d-6c90ac5cf793?access_key=PMAT-01H3Q0678H2KSHY6AE42QMH17H]
 
