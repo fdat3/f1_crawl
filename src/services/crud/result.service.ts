@@ -7,19 +7,21 @@ export class ResultService extends CrudService<typeof Results> {
     constructor() {
         super(Results)
     }
-    async findOrCreate(params: any, option?: ICrudOption) {
-        let driverOfRace = await this.model.findOne({
-            where: {
-                race_id: params.race_id,
-                driver_id: params.driver_id,
-            },
-            transaction: option.transaction
-        })
-        if (!driverOfRace) {
-            driverOfRace = await this.exec(this.model.create(params, this.applyCreateOptions(option)));
-        }
-        return driverOfRace
-    }
+    /**For Crawl Data will fix later */
+
+    // async findOrCreate(params: any, option?: ICrudOption) {
+    //     let driverOfRace = await this.model.findOne({
+    //         where: {
+    //             race_id: params.race_id,
+    //             driver_id: params.driver_id,
+    //         },
+    //         transaction: option.transaction
+    //     })
+    //     if (!driverOfRace) {
+    //         driverOfRace = await this.exec(this.model.create(params, this.applyCreateOptions(option)));
+    //     }
+    //     return driverOfRace
+    // }
     async getResultInOneRace(params: { year: Number, grand_prix: String }) {
         const result = await Results.findAll({
             where: {
@@ -135,12 +137,13 @@ export class ResultService extends CrudService<typeof Results> {
                 {
                     association: "driver",
                     attributes: [],
-                    include: [{
-                        association: "team",
-                        attributes: ["fullname_team"],
+                    include: [
+                        {
+                            association: "team",
+                            attributes: ["fullname_team"],
 
-                    }]
-
+                        }
+                    ]
                 },
                 {
                     association: "race",
@@ -148,7 +151,7 @@ export class ResultService extends CrudService<typeof Results> {
                 },
             ],
             attributes: [[sequelize.fn('sum', sequelize.col('pts')), 'pts']],
-            group: ["driver->team.id", "driver.team_id", "race.year"],
+            group: ["driver.team.id", "race.year"],
             order: [["pts", "desc"]],
             raw: true
         })
